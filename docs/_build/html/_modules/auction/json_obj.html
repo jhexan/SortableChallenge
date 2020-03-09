@@ -1,0 +1,226 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>auction.json_obj &#8212; auction 0.0.1 documentation</title>
+    <link rel="stylesheet" href="../../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" src="../../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+   
+  <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for auction.json_obj</h1><div class="highlight"><pre>
+<span class="sd">&quot;&quot;&quot;This module is used to decode/encode json&quot;&quot;&quot;</span>
+<span class="kn">import</span> <span class="nn">json</span>
+
+
+<div class="viewcode-block" id="JsonObj"><a class="viewcode-back" href="../../source/auction.html#auction.json_obj.JsonObj">[docs]</a><span class="k">class</span> <span class="nc">JsonObj</span><span class="p">(</span><span class="n">json</span><span class="o">.</span><span class="n">JSONEncoder</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Class to abstract custom json object decoding/encoding. Inherits from json.JSONEncoder</span>
+
+<span class="sd">    Attributes</span>
+<span class="sd">    ----------</span>
+<span class="sd">    data : dict</span>
+<span class="sd">        A dictionary of Python decoded objects</span>
+<span class="sd">    properties : dict</span>
+<span class="sd">        A dictionary of Python class properties used to identify this class object</span>
+
+<span class="sd">    Methods</span>
+<span class="sd">    -------</span>
+<span class="sd">    loads(class_name, json_str)</span>
+<span class="sd">        Static method to deserialize json_str (a str, bytes or bytearray instance containing a JSON document) to a</span>
+<span class="sd">        Python object of type class_name</span>
+<span class="sd">    dumps(class_name, json_dict)</span>
+<span class="sd">        Static method to serialize json_dict with objects of type class_name to a JSON formatted str</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">_properties</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;__init__ method.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        data : dict</span>
+<span class="sd">            A dictionary of Python decoded objects</span>
+<span class="sd">        **kwargs</span>
+<span class="sd">            Keyword arguments passed to JSONEncoder parent class</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_data</span> <span class="o">=</span> <span class="n">data</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">data</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;dict:  A dictionary of Python decoded objects&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_data</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">properties</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;dict:  A dictionary of Python class properties used to identify this class object&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_properties</span>
+
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">_object_hook</span><span class="p">(</span><span class="n">json_dict</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Default object hook for decoding json elements with default types</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        json_dict : dict</span>
+<span class="sd">            Python dictionary with standard type elements</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        bool</span>
+<span class="sd">            Python dictionary with decoded elements</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">json_dict</span>
+
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">_get_properties</span><span class="p">(</span><span class="n">class_name</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Private method to return class properties (attributes with @property decorator)</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        class_name : str</span>
+<span class="sd">            Class name</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        dict</span>
+<span class="sd">            Dictionary containing property name,object key,values</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">properties</span> <span class="o">=</span> <span class="p">{</span><span class="n">key</span><span class="p">:</span> <span class="n">val</span>
+                      <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">val</span> <span class="ow">in</span> <span class="n">class_name</span><span class="o">.</span><span class="n">__dict__</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
+                      <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">val</span><span class="p">,</span> <span class="nb">property</span><span class="p">)}</span>
+        <span class="k">return</span> <span class="n">properties</span>
+
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">_is_object</span><span class="p">(</span><span class="n">class_name</span><span class="p">,</span> <span class="n">json_dict</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Private method to determine if class with class_name matches element in json_dict. The method compares</span>
+<span class="sd">        class_name properties with json_dict keys to determine a match.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        class_name : str</span>
+<span class="sd">            Class name to determine match</span>
+<span class="sd">        json_dict : dict</span>
+<span class="sd">            Python dictionary element</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        bool</span>
+<span class="sd">            True if class_name properties matches json_dict keys</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">class_name</span><span class="o">.</span><span class="n">_properties</span><span class="p">:</span>
+            <span class="n">class_name</span><span class="o">.</span><span class="n">_properties</span> <span class="o">=</span> <span class="n">JsonObj</span><span class="o">.</span><span class="n">_get_properties</span><span class="p">(</span><span class="n">class_name</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">class_name</span><span class="o">.</span><span class="n">_properties</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span> <span class="o">==</span> <span class="n">json_dict</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span>
+
+<div class="viewcode-block" id="JsonObj.loads"><a class="viewcode-back" href="../../source/auction.html#auction.json_obj.JsonObj.loads">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">loads</span><span class="p">(</span><span class="n">class_name</span><span class="p">,</span> <span class="n">json_str</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Static method to to deserialize json_str (a str, bytes or bytearray instance containing a JSON document) to a</span>
+<span class="sd">        Python object of type class_name. This method uses object_hook parameter in json.loads to do the parsing of</span>
+<span class="sd">        custom JsonObj type classes</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        class_name : str</span>
+<span class="sd">            Class used to decode additional Python objects (e.g. bid objects)</span>
+<span class="sd">        json_str : str</span>
+<span class="sd">            A str, bytes or bytearray instance containing a JSON document</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        dict</span>
+<span class="sd">            Python dictionary containing python object elements</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">json_str</span><span class="p">,</span> <span class="n">object_hook</span> <span class="o">=</span> <span class="n">class_name</span><span class="o">.</span><span class="n">_object_hook</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="JsonObj.dumps"><a class="viewcode-back" href="../../source/auction.html#auction.json_obj.JsonObj.dumps">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">dumps</span><span class="p">(</span><span class="n">class_name</span><span class="p">,</span> <span class="n">json_dict</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Static method to serialize json_dict with objects of type class_name to a JSON formatted str</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        class_name : str</span>
+<span class="sd">            Class to serialise additional types</span>
+<span class="sd">        json_dict : dict</span>
+<span class="sd">            A str, bytes or bytearray instance containing a JSON document</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        str</span>
+<span class="sd">            JSON formatted str</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">json_dict</span><span class="p">,</span> <span class="n">cls</span> <span class="o">=</span> <span class="n">class_name</span><span class="p">,</span> <span class="n">indent</span> <span class="o">=</span> <span class="mi">4</span><span class="p">)</span></div></div>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper"><div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../index.html">Documentation overview</a><ul>
+  <li><a href="../index.html">Module code</a><ul>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2020, John Hexan.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.7.4</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>
