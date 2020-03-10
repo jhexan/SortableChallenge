@@ -1,0 +1,24 @@
+{
+    "sites": [
+        {
+            "name": "site1.com",
+            "bidders": ["bidder1"],
+            "floor": 32
+        },
+		{
+            "name": "site2.com",
+            "bidders": ["bidder1", "bidder2"],
+            "floor": 20
+        }
+    ],
+    "bidders": [
+        {
+            "name": "bidder1",
+            "adjustment": -0.0858
+        },
+        {
+            "name": "bidder2",
+            "adjustment": 0.01
+        }
+    ]
+}

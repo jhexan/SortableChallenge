@@ -1,0 +1,70 @@
+[
+    {
+        "site": "unkown_site.com",
+		"units": ["banner"],
+        "bids": [
+			{
+				"bidder": "bidder1",
+				"unit": "banner",
+				"bid": 40
+			}
+		]
+    },
+	{
+        "site": "site1.com",
+		"units": ["banner"],
+        "bids": [
+			{
+				"bidder": "unknown_bidder",
+				"unit": "banner",
+				"bid": 40
+			},
+			{
+				"bidder": "bidder2",
+				"unit": "banner",
+				"bid": 40
+			},
+			{
+				"bidder": "bidder1",
+				"unit": "unknown_unit",
+				"bid": 40
+			},
+			{
+				"bidder": "bidder1",
+				"unit": "banner",
+				"bid": 35
+			}
+		]
+    },
+	{
+        "site": "site2.com",
+		"units": ["banner", "sidebar"],
+        "bids": [
+			{
+				"bidder": "bidder1",
+				"unit": "banner",
+				"bid": 25
+			},
+			{
+				"bidder": "bidder1",
+				"unit": "banner",
+				"bid": 25
+			},
+			{
+				"bidder": "bidder1",
+				"unit": "banner",
+				"bid": 24.99
+			},
+			{
+				"bidder": "bidder1",
+				"unit": "sidebar",
+				"bid": 32
+			},
+			{
+				"bidder": "bidder2",
+				"unit": "sidebar",
+				"bid": 31.683
+			}
+		]
+    }
+]
