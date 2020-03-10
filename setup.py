@@ -21,6 +21,12 @@ setuptools.setup(
         "License :: OSI Approved :: MIT License",
         "Operating System :: OS Independent",
     ],
+    project_urls={
+        "Documentation": "https://jhexan.github.io/SortableChallenge/_build"
+                         "/html/index.html",
+        "Source Code": "https://github.com/jhexan/SortableChallenge/tree"
+                       "/master/auction",
+    },
     python_requires='>=3.6',
     install_requires=install_requires
 )
