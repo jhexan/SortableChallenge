@@ -1,4 +1,5 @@
-"""This module contains the AuctionManager class that stores configurations and runs auctions"""
+"""This module contains the AuctionManager class that stores configurations
+and runs auctions """
 from auction.auction import Auction
 from auction.config import Config
 from auction.bid import Bid
@@ -6,7 +7,7 @@ from auction.result import Result
 from auction.json_obj import JsonObj
 
 
-class AuctionManager(object):
+class AuctionManager:
     """
     Class that executes auctions based on a stored Config object
 
@@ -16,7 +17,8 @@ class AuctionManager(object):
     Methods
     -------
     execute_auctions(auctions_json)
-        Method to execute auctions, passed in as a json string, and return the corresponding results
+        Method to execute auctions, passed in as a json string, and return the
+        corresponding results
 
     """
 
@@ -52,8 +54,8 @@ class AuctionManager(object):
         self._config = JsonObj.loads(Config, config_json)
 
     def execute_auctions(self, auctions_json):
-        """Method to execute individual auctions and to construct auction result objects. The return is a list of
-        results as a json string.
+        """Method to execute individual auctions and to construct auction
+        result objects. The return is a list of results as a json string.
 
         Parameters
         ----------
@@ -110,8 +112,9 @@ class AuctionManager(object):
         return JsonObj.dumps(Result, results)
 
     def _get_adjusted_bid(self, site, auction, bid):
-        """This method calculates the adjusted bid value for a valid bid with the following formula:
-        adjusted bid = bid + (bid * adjustment)
+        """This method calculates the adjusted bid value for a valid bid
+        with the following formula: adjusted bid = bid + (abs(bid) *
+        adjustment)
 
         Parameters
         ----------
@@ -129,13 +132,15 @@ class AuctionManager(object):
 
         """
         if self._is_valid_bid(site, auction, bid):
-            # Adjusted bid is bid + (bid * adjustment)
-            return bid.bid + (bid.bid * self._config.get_adjustment(bid.bidder))
+            # Adjusted bid is bid + (abs(bid) * adjustment)
+            return bid.bid + (abs(bid.bid) *
+                              self._config.get_adjustment(bid.bidder))
         return None
 
     def _is_valid_bid(self, site, auction, bid):
-        """Determines if a bid is valid. A bid is invalid if the bidder is unknown, or a bidder is not permitted to bid
-        on this site, or the bid is for an ad unit not involved with this auction.
+        """Determines if a bid is valid. A bid is invalid if the bidder is
+        unknown, or a bidder is not permitted to bid on this site, or the
+        bid is for an ad unit not involved with this auction.
 
         Parameters
         ----------
@@ -159,7 +164,8 @@ class AuctionManager(object):
             auction.has_unit(bid.unit)
 
     def _is_valid_auction(self, auction):
-        """Determines if an auction is valid. An auction is invalid if the site is unrecognised
+        """Determines if an auction is valid. An auction is invalid if the
+        site is unrecognised
 
         Parameters
         ----------
@@ -197,7 +203,8 @@ class AuctionManager(object):
             for bid in auction.bids:
                 # For each bid in this auction get the adjusted bid
                 adjusted_bid = self._get_adjusted_bid(site, auction, bid)
-                if adjusted_bid is not None:
+                if adjusted_bid is not None and \
+                        adjusted_bid > max(site.floor, 0):
                     # If we have a valid bid add it to the result
                     result.new_bid(bid, adjusted_bid)
         # Return auction result data
