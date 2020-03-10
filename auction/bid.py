@@ -30,7 +30,8 @@ class Bid(JsonObj):
         data : dict
             A dictionary of Python decoded objects representing a Bid
         **kwargs
-            Keyword arguments passed to JsonObj parent class (used for encoding)
+            Keyword arguments passed to JsonObj parent class
+            (used for encoding)
 
         """
         super().__init__(data, **kwargs)

@@ -1,6 +1,7 @@
 """__main__ module executed when module is run with -m.
 
-The module executes auctions from standard input and prints the results to screen as a JSON formatted string
+The module executes auctions from standard input and prints the results to
+screen as a JSON formatted string
 
 Example
 -------
@@ -9,7 +10,8 @@ Example
 
 Notes
 -----
-All inputs (auctions and config.json) are assumed to be well-formed (e.g. all fields are present and are of the
+All inputs (auctions and config.json) are assumed to be well-formed
+(e.g. all fields are present and are of the
 expected types)
 
 """
@@ -24,7 +26,8 @@ _CONFIG_PATH = os.path.dirname(os.path.realpath(__file__))
 
 
 def _get_config():
-    """Method to parse config file _CONFIG_PATH/_CONFIG_FILE and return contents
+    """Method to parse config file _CONFIG_PATH/_CONFIG_FILE and return
+    contents
 
     Returns
     -------
@@ -34,8 +37,8 @@ def _get_config():
     """
     config = ""
     try:
-        with open(os.path.join(_CONFIG_PATH, _CONFIG_FILE), "r") as f:
-            config = f.read()
+        with open(os.path.join(_CONFIG_PATH, _CONFIG_FILE), "r") as file:
+            config = file.read()
     except OSError as err:
         print("Cannot read config file: {0}".format(err))
     return config
@@ -57,5 +60,4 @@ def execute_auctions(auctions):
 
 
 if __name__ == '__main__':
-    auctions_json = sys.stdin.read();
-    execute_auctions(auctions_json)
+    execute_auctions(sys.stdin.read())

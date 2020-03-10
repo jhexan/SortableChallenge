@@ -36,7 +36,8 @@ class Auction(JsonObj):
         data : dict
             A dictionary of Python decoded objects representing an auction
         **kwargs
-            Keyword arguments passed to JsonObj parent class (used for encoding)
+            Keyword arguments passed to JsonObj parent class
+            (used for encoding)
 
         """
         super().__init__(data, **kwargs)
@@ -67,14 +68,16 @@ class Auction(JsonObj):
         Returns
         -------
         bool
-            True if this auction has a unit with name unit_name, False otherwise
+            True if this auction has a unit with name unit_name,
+            False otherwise
 
         """
         return unit_name in self.units
 
     @staticmethod
     def _object_hook(json_dict):
-        """Custom json decoder for this class. It can decode any Bid and Auction object elements present in json_dict
+        """Custom json decoder for this class. It can decode any Bid and
+        Auction object elements present in json_dict dgfsdgs
 
         Parameters
         ----------

@@ -35,7 +35,8 @@ class Site(JsonObj):
         data : dict
             A dictionary of Python decoded objects representing a Site
         **kwargs
-            Keyword arguments passed to JsonObj parent class (used for encoding)
+            Keyword arguments passed to JsonObj parent class (used for
+            encoding)
 
         """
         super().__init__(data, **kwargs)
@@ -66,7 +67,8 @@ class Site(JsonObj):
         Returns
         -------
         bool
-            True if this Site has a bidder with name bidder_name, False otherwise
+            True if this Site has a bidder with name bidder_name,
+            False otherwise
 
         """
         return bidder_name in self.bidders

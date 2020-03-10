@@ -4,22 +4,26 @@ import json
 
 class JsonObj(json.JSONEncoder):
     """
-    Class to abstract custom json object decoding/encoding. Inherits from json.JSONEncoder
+    Class to abstract custom json object decoding/encoding. Inherits from
+    json.JSONEncoder
 
     Attributes
     ----------
     data : dict
         A dictionary of Python decoded objects
     properties : dict
-        A dictionary of Python class properties used to identify this class object
+        A dictionary of Python class properties used to identify this class
+        object
 
     Methods
     -------
     loads(class_name, json_str)
-        Static method to deserialize json_str (a str, bytes or bytearray instance containing a JSON document) to a
+        Static method to deserialize json_str (a str, bytes or bytearray
+        instance containing a JSON document) to a
         Python object of type class_name
     dumps(class_name, json_dict)
-        Static method to serialize json_dict with objects of type class_name to a JSON formatted str
+        Static method to serialize json_dict with objects of type class_name to
+        a JSON formatted str
 
     """
 
@@ -46,7 +50,8 @@ class JsonObj(json.JSONEncoder):
 
     @property
     def properties(self):
-        """dict:  A dictionary of Python class properties used to identify this class object"""
+        """dict:  A dictionary of Python class properties used to identify
+        this class object """
         return self._properties
 
     @staticmethod
@@ -68,7 +73,8 @@ class JsonObj(json.JSONEncoder):
 
     @staticmethod
     def _get_properties(class_name):
-        """Private method to return class properties (attributes with @property decorator)
+        """Private method to return class properties (attributes with
+        @property decorator)
 
         Parameters
         ----------
@@ -88,8 +94,9 @@ class JsonObj(json.JSONEncoder):
 
     @staticmethod
     def _is_object(class_name, json_dict):
-        """Private method to determine if class with class_name matches element in json_dict. The method compares
-        class_name properties with json_dict keys to determine a match.
+        """Private method to determine if class with class_name matches
+        element in json_dict. The method compares class_name properties with
+        json_dict keys to determine a match.
 
         Parameters
         ----------
@@ -110,13 +117,14 @@ class JsonObj(json.JSONEncoder):
 
     @staticmethod
     def loads(class_name, json_str):
-        """Static method to to deserialize json_str (a str, bytes or bytearray instance containing a JSON document) to a
-        Python object of type class_name. This method uses object_hook parameter in json.loads to do the parsing of
-        custom JsonObj type classes
+        """Static method to to deserialize json_str (a str, bytes or
+        bytearray instance containing a JSON document) to a Python object of
+        type class_name. This method uses object_hook parameter in
+        json.loads to do the parsing of custom JsonObj type classes
 
         Parameters
         ----------
-        class_name : str
+        class_name : JsonObj
             Class used to decode additional Python objects (e.g. bid objects)
         json_str : str
             A str, bytes or bytearray instance containing a JSON document
@@ -127,11 +135,12 @@ class JsonObj(json.JSONEncoder):
             Python dictionary containing python object elements
 
         """
-        return json.loads(json_str, object_hook = class_name._object_hook)
+        return json.loads(json_str, object_hook=class_name._object_hook)
 
     @staticmethod
     def dumps(class_name, json_dict):
-        """Static method to serialize json_dict with objects of type class_name to a JSON formatted str
+        """Static method to serialize json_dict with objects of type
+        class_name to a JSON formatted str
 
         Parameters
         ----------
@@ -146,4 +155,4 @@ class JsonObj(json.JSONEncoder):
             JSON formatted str
 
         """
-        return json.dumps(json_dict, cls = class_name, indent = 4)
+        return json.dumps(json_dict, cls=class_name, indent=4)

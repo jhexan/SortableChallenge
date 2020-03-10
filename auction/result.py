@@ -17,7 +17,8 @@ class Result(JsonObj):
     Methods
     -------
     has_adjusted_bid(unit_name)
-        Method to determine if this result has an adjusted bid for unit unit_name
+        Method to determine if this result has an adjusted bid for unit
+        unit_name
     new_bid(bid, adjusted_bid)
         Method to add a new bid to this result
 
@@ -29,7 +30,8 @@ class Result(JsonObj):
         self._bids = dict()
 
     def has_adjusted_bid(self, unit_name):
-        """Method to determine if this result has an adjusted bid for unit unit_name
+        """Method to determine if this result has an adjusted bid for unit
+        unit_name
 
         Parameters
         ----------
@@ -39,14 +41,16 @@ class Result(JsonObj):
         Returns
         -------
         bool
-            True if this result has an adjusted bid for unit unit_name, False otherwise
+            True if this result has an adjusted bid for unit unit_name,
+            False otherwise
 
         """
         return unit_name in self._adjusted_bids
 
     def new_bid(self, bid, adjusted_bid):
-        """Method to add a new bid to this result. For a bid to be added the adjusted_bid for this bid has to be
-        greater than any existing adjusted bids for the same bid unit.
+        """Method to add a new bid to this result. For a bid to be added the
+        adjusted_bid for this bid has to be greater than any existing
+        adjusted bids for the same bid unit.
 
         Parameters
         ----------
@@ -56,18 +60,20 @@ class Result(JsonObj):
             The adjusted bid value for this Bid
 
         """
-        if self.has_adjusted_bid(bid.unit) and self._adjusted_bids[bid.unit] > adjusted_bid:
+        if self.has_adjusted_bid(bid.unit) and \
+                self._adjusted_bids[bid.unit] > adjusted_bid:
             return
         # We have a new winner bid
         self._adjusted_bids[bid.unit] = adjusted_bid
         self._bids[bid.unit] = bid
 
-    def default(self, obj):
-        """Custom json encoder for this class. It encodes any Bid objects from Result.data attribute
+    def default(self, o):
+        """Custom json encoder for this class. It encodes any Bid objects
+        from Result.data attribute
 
         Parameters
         ----------
-        obj : object
+        o : object
            Python object
 
         Returns
@@ -76,9 +82,9 @@ class Result(JsonObj):
            Serializable object for obj
 
         """
-        if isinstance(obj, Bid):
-            return obj.data
-        return json.JSONEncoder.default(self, obj)
+        if isinstance(o, Bid):
+            return o.data
+        return json.JSONEncoder.default(self, o)
 
     @property
     def data(self):

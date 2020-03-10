@@ -1,4 +1,5 @@
-"""This module contains the Bidder class used to decode a bidder configuration"""
+"""This module contains the Bidder class used to decode a bidder configuration
+"""
 from auction.json_obj import JsonObj
 
 
@@ -27,7 +28,8 @@ class Bidder(JsonObj):
         data : dict
             A dictionary of Python decoded objects representing a Bidder
         **kwargs
-            Keyword arguments passed to JsonObj parent class (used for encoding)
+            Keyword arguments passed to JsonObj parent class (used for
+            encoding)
 
         """
         super().__init__(data, **kwargs)

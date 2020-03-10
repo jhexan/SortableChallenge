@@ -6,12 +6,9 @@ from auction.json_obj import JsonObj
 
 class Config(JsonObj):
     """
-    Class used to decode data in config.json. This class uses the Site and Bidder JsonObj decoders to decode
-    bidder and site elements from the configuration data. E.g.:
-    {
-        "sites": [<Site>],
-        "bidders": [<Bidder>]
-    }
+    Class used to decode data in config.json. This class uses the Site and
+    Bidder JsonObj decoders to decode bidder and site elements from the
+    configuration data. E.g.: { "sites": [<Site>], "bidders": [<Bidder>] }
 
     Attributes
     ----------
@@ -25,7 +22,8 @@ class Config(JsonObj):
     has_site(site_name)
         Method to determine if this configuration has a site named site_name
     has_bidder(bidder_name)
-        Method to determine if this configuration has a bidder named bidder_name
+        Method to determine if this configuration has a bidder named
+        bidder_name
     get_adjustment(bidder_name)
         Method to get the adjustment value for a bidder
     get_site(site_name)
@@ -41,7 +39,8 @@ class Config(JsonObj):
         data : dict
             A dictionary of Python decoded objects representing a config json
         **kwargs
-            Keyword arguments passed to JsonObj parent class (used for encoding)
+            Keyword arguments passed to JsonObj parent class (used for
+            encoding)
 
         """
         super().__init__(data, **kwargs)
@@ -91,7 +90,8 @@ class Config(JsonObj):
         Returns
         -------
         bool
-            True if this config has a bidder with name bidder_name, False otherwise
+            True if this config has a bidder with name bidder_name,
+            False otherwise
 
         """
         return bidder_name in self._bidders
@@ -130,8 +130,8 @@ class Config(JsonObj):
 
     @staticmethod
     def _object_hook(json_dict):
-        """Custom json decoder for this class. It can decode any Bidder, Site and Config object elements present in
-        json_dict
+        """Custom json decoder for this class. It can decode any Bidder,
+        Site and Config object elements present in json_dict
 
         Parameters
         ----------
@@ -147,8 +147,8 @@ class Config(JsonObj):
         # We're assuming valid data
         if JsonObj._is_object(__class__, json_dict):
             return Config(json_dict)
-        elif JsonObj._is_object(Bidder, json_dict):
+        if JsonObj._is_object(Bidder, json_dict):
             return Bidder(json_dict)
-        elif JsonObj._is_object(Site, json_dict):
+        if JsonObj._is_object(Site, json_dict):
             return Site(json_dict)
         return json_dict
