@@ -2,7 +2,7 @@
 Sortable coding challenge. The implementation was done in python in the [auction package](auction)
 
 ## API and Documentation
-See [auction package](auction) package documentation here: https://jhexan.github.io/SortableChallenge/
+See [auction package](auction) documentation here: https://jhexan.github.io/SortableChallenge/
 
 Generated with:
 ```
