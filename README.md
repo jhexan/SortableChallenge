@@ -6,6 +6,7 @@ See [auction package](auction) documentation here: https://jhexan.github.io/Sort
 
 Generated with:
 ```
+$ make install-pkgs
 $ make docs
 ```
 
@@ -25,10 +26,15 @@ Or in a python environment with python version >=3.6:
 $ cp /path/to/config.json auction/
 $ python -m auction < /path/to/input.json
 ```
+Alternatively the python package can be installed with (see [doc](https://jhexan.github.io/SortableChallenge/) for API and modules):
+```
+$ make install
+```
 
 ## Unit Tests
 Basic unit tests are under [tests](tests), and can be run with 
 ```
+$ make install-pkgs
 $ make test
 ```
 
