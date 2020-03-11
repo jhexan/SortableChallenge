@@ -29,5 +29,6 @@ $ make test
 
 ## Assumptions
 - All input data is well formed and json is valid (see https://jsonlint.com/) 
-- config.json is expected to be under the [auction](auction) project folder  
+- config.json is expected to be under the [auction](auction) project folder
+- Input is given through standard in
 - Output is printed to standard out
