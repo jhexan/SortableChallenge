@@ -4,6 +4,11 @@ Sortable coding challenge. The implementation was done in python in the [auction
 ## API and Documentation
 See [auction package](auction) package documentation here: https://jhexan.github.io/SortableChallenge/
 
+Generated with:
+```
+$ make docs
+```
+
 ## Example build and execution
 First clone the repository:
 ```
